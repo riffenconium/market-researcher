@@ -7,6 +7,10 @@ const config: Config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
+  // Required for pptxgenjs dynamic import('node:fs') inside Jest's VM sandbox
+  testEnvironmentOptions: {
+    experimentalVmModules: true,
+  },
 };
 
 export default config;
