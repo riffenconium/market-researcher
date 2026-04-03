@@ -1,4 +1,4 @@
-import pdfParse from "pdf-parse";
+import { PDFParse } from "pdf-parse";
 
 export interface ExtractedDocument {
   text: string;
@@ -10,12 +10,16 @@ export interface ExtractedDocument {
 }
 
 export async function extractPdf(buffer: Buffer, fileName?: string): Promise<ExtractedDocument> {
-  const data = await pdfParse(buffer);
+  const parser = new PDFParse({ data: buffer });
+  const [textResult, infoResult] = await Promise.all([
+    parser.getText(),
+    parser.getInfo(),
+  ]);
   return {
-    text: data.text,
+    text: textResult.text,
     metadata: {
-      pageCount: data.numpages,
-      title: data.info?.Title || fileName || "Unknown",
+      pageCount: infoResult.total,
+      title: (infoResult.info as Record<string, unknown>)?.Title as string | undefined || fileName || "Unknown",
       source: fileName || "uploaded-pdf",
     },
   };
