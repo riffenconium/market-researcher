@@ -41,6 +41,7 @@ yarn-error.log*
 !/uploads/.gitkeep
 /output/*
 !/output/.gitkeep
+/data/
 
 # typescript
 *.tsbuildinfo
