@@ -18,6 +18,9 @@ export class GeminiClient {
     const model = this.genAI.getGenerativeModel({
       model: this.modelName,
       systemInstruction: systemPrompt,
+      generationConfig: {
+        responseMimeType: "application/json",
+      },
     });
 
     const result = await model.generateContent(userMessage);
@@ -25,7 +28,7 @@ export class GeminiClient {
     let text = response.text();
     const usage = response.usageMetadata;
 
-    // Strip markdown code fences that Gemini sometimes wraps around JSON
+    // Fallback: strip markdown code fences if present
     text = text.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
 
     return {
