@@ -22,8 +22,11 @@ export class GeminiClient {
 
     const result = await model.generateContent(userMessage);
     const response = result.response;
-    const text = response.text();
+    let text = response.text();
     const usage = response.usageMetadata;
+
+    // Strip markdown code fences that Gemini sometimes wraps around JSON
+    text = text.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
 
     return {
       text,
