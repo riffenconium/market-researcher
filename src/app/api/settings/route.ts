@@ -6,7 +6,7 @@ export async function GET() {
   const db = getDb();
   return NextResponse.json({
     defaultAutonomy: getSetting(db, "defaultAutonomy") || "guided",
-    geminiModel: getSetting(db, "geminiModel") || "gemini-2.0-flash",
+    geminiModel: getSetting(db, "geminiModel") || "gemini-2.5-flash",
   });
 }
 
