@@ -93,7 +93,7 @@ export default function ProjectWorkspace() {
           <OutlinePanel slides={project.slides || []} onUpdateSlide={handleUpdateSlide} onDeleteSlide={handleDeleteSlide} />
         </div>
 
-        <div className="w-80 border-l border-gray-200 bg-white">
+        <div className="w-96 border-l border-gray-200 bg-white">
           <AgentPanel projectId={projectId} autonomyLevel={project.autonomy_level} onAutonomyChange={handleAutonomyChange} onRunComplete={fetchProject} />
         </div>
       </div>
