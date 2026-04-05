@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
     updateAgentRun(db, runId, "completed");
     activeOrchestrators.delete(runId);
   }).catch((error) => {
+    console.error(`[Agent Run ${runId}] Failed:`, error?.message || error);
     updateAgentRun(db, runId, "failed");
     activeOrchestrators.delete(runId);
   });
